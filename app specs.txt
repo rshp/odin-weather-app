@@ -1,0 +1,18 @@
+1. Try to geolocate user, convert geolocation to nearest city/town
+2. If not allowed/failed - geolocate by IP to the nearest town
+3. Fetch weater for
+  - now
+  - next 24h, hourly/every few hours
+  - daily next X days
+
+Display:
+* Weather now:
+  - Place: City, Country code
+  - Current, local time
+  - Icon
+  - Weather text
+  -----------------------
+  - other info
+* 2 tabs with daily and hourly weather. Do sliders
+* Switch between imperial/metric units
+* Update backround and text/icons to fit time (dark/light) and weather(clouds/heavy clouds/sun/moon/stars/clear sky/rain/lightning)
