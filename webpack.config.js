@@ -8,7 +8,7 @@ let buildPath = path.resolve(__dirname, 'dev-build');
 
 const plugins = [
 	new HtmlWebpackPlugin({
-		template: './src/template.html',
+		template: './src/html/template.html',
 	}),
 	new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
 ];
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
 	mode,
-	entry: './src/index.js',
+	entry: './src/js/main.js',
 	plugins,
 	output: {
 		filename: '[name].[contenthash].bundle.js',
