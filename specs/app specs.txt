@@ -16,3 +16,6 @@ Display:
 * 2 tabs with daily and hourly weather. Do sliders
 * Switch between imperial/metric units
 * Update backround and text/icons to fit time (dark/light) and weather(clouds/heavy clouds/sun/moon/stars/clear sky/rain/lightning)
+
+Weather icons pack and css:
+https://erikflowers.github.io/weather-icons/
