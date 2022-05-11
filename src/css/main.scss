@@ -1,0 +1,5 @@
+@import './module';
+$custom-color: red;
+body {
+	color: $custom-color;
+}

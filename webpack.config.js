@@ -1,15 +1,22 @@
 /* eslint-disable no-undef */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const mode = 'development';
-const buildPath = path.resolve(__dirname, 'dev-build');
+let mode = 'development';
+let buildPath = path.resolve(__dirname, 'dev-build');
 
 const plugins = [
 	new HtmlWebpackPlugin({
-		template: './src/index.html',
+		template: './src/template.html',
 	}),
+	new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
 ];
+
+if (process.env.NODE_ENV === 'production') {
+	mode = 'production';
+	buildPath = path.resolve(__dirname, 'dist');
+}
 
 module.exports = {
 	mode,
@@ -25,11 +32,24 @@ module.exports = {
 		rules: [
 			{
 				test: /\.scss$/i,
-				use: ['style-loader', 'css-loader', 'sass-loader'],
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: { publicPath: '' },
+					},
+					'css-loader',
+					'sass-loader',
+				],
 			},
 			{
 				test: /\.css$/i,
-				use: ['style-loader', 'css-loader'],
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: { publicPath: '' },
+					},
+					'css-loader',
+				],
 			},
 			{
 				test: /\.svg$/i,
