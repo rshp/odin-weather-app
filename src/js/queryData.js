@@ -28,5 +28,17 @@ export default (() => {
 		}
 	}
 
-	return { getCoordinates, getWeather };
+	async function getLocationByIP() {
+		try {
+			const APICallString = `https://ipapi.co/json/`;
+			const response = await fetch(APICallString, { mode: 'cors' });
+			const dataObject = await response.json();
+			return dataObject;
+		} catch (error) {
+			console.error(error);
+			return {};
+		}
+	}
+
+	return { getCoordinates, getWeather, getLocationByIP };
 })();

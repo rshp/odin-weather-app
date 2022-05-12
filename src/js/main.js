@@ -4,3 +4,4 @@ import getWeatherData from './queryData';
 
 // getWeatherData.getCoordinates('Moscow').then((result) => console.log(result));
 getWeatherData.getWeather('London').then((result) => console.log(result));
+getWeatherData.getLocationByIP().then((result) => console.log(result));
