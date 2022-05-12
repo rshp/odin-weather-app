@@ -8,17 +8,41 @@ export default (() => {
 			const response = await fetch(geocodingCallString, { mode: 'cors' });
 			const dataObject = await response.json();
 			if (!dataObject.length) throw new Error('Invalid search result');
-			return dataObject[0];
+			return {
+				city: dataObject[0].name,
+				country: dataObject[0].country,
+				longitude: dataObject[0].lon,
+				latitude: dataObject[0].lat,
+			};
 		} catch (error) {
 			console.error(error);
 			return {};
 		}
 	}
 
-	async function getWeather(cityName) {
-		const cityData = await getCoordinates(cityName);
+	async function getLocationByIP() {
 		try {
-			const oneCallString = `https://api.openweathermap.org/data/2.5/onecall?lat=${cityData.lat}&lon=${cityData.lon}&exclude=minutely,alerts&appid=${API_KEY}`;
+			const APICallString = 'https://ipapi.co/json/';
+			const response = await fetch(APICallString, { mode: 'cors' });
+			const dataObject = await response.json();
+			return {
+				city: dataObject.city,
+				country: dataObject.country_name,
+				longitude: dataObject.longitude,
+				latitude: dataObject.latitude,
+			};
+		} catch (error) {
+			console.error(error);
+			return {};
+		}
+	}
+
+	async function getWeather(location) {
+		try {
+			if (Object.keys(location).length === 0) {
+				throw new Error('Location invalid');
+			}
+			const oneCallString = `https://api.openweathermap.org/data/2.5/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude=minutely,alerts&appid=${API_KEY}`;
 			const response = await fetch(oneCallString, { mode: 'cors' });
 			const dataObject = await response.json();
 			return dataObject;
@@ -28,17 +52,23 @@ export default (() => {
 		}
 	}
 
-	async function getLocationByIP() {
-		try {
-			const APICallString = `https://ipapi.co/json/`;
-			const response = await fetch(APICallString, { mode: 'cors' });
-			const dataObject = await response.json();
-			return dataObject;
-		} catch (error) {
-			console.error(error);
-			return {};
-		}
+	async function getWeatherByCity(cityName) {
+		const location = await getCoordinates(cityName);
+		const weather = await getWeather(location);
+		return { ...weather, ...location };
 	}
 
-	return { getCoordinates, getWeather, getLocationByIP };
+	async function getWeatherByIP() {
+		const location = await getLocationByIP();
+		const weather = await getWeather(location);
+		return { ...weather, ...location };
+	}
+
+	return {
+		getCoordinates,
+		getWeather,
+		getLocationByIP,
+		getWeatherByCity,
+		getWeatherByIP,
+	};
 })();
