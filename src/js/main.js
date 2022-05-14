@@ -1,7 +1,7 @@
 import '../styles/main.scss';
 import 'weather-icons/sass/weather-icons.scss';
-import getWeatherData from './queryData';
+import render from './render';
 
 // getWeatherData.getCoordinates('Moscow').then((result) => console.log(result));
-getWeatherData.getWeather('London').then((result) => console.log(result));
-getWeatherData.getLocationByIP().then((result) => console.log(result));
+// getWeatherData.getWeatherByCity('moscow').then((result) => console.log(result));
+render.init();
