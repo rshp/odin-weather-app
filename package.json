@@ -32,6 +32,7 @@
 		"webpack-dev-server": "^4.9.0"
 	},
 	"dependencies": {
+		"normalize.css": "^8.0.1",
 		"weather-icons": "github:erikflowers/weather-icons"
 	}
 }
