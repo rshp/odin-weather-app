@@ -1,4 +1,2 @@
-$custom-color: red;
-body {
-	color: $custom-color;
-}
+@use './base';
+@use './components/header';

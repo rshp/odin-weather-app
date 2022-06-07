@@ -5,4 +5,14 @@ function createElement(type, elementClass = undefined) {
 	return element;
 }
 
-export { createElement };
+function createHeaderIcon(container, iconSrc, href) {
+	const anchor = document.createElement('a');
+	anchor.href = href;
+	const icon = new Image();
+	icon.src = iconSrc;
+	icon.classList.add('header__icon');
+	anchor.appendChild(icon);
+	container.appendChild(anchor);
+}
+
+export { createElement, createHeaderIcon };
