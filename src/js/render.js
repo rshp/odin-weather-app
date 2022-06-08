@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import createHeader from './_header';
 import createNav from './_nav';
 import './_forecast';
@@ -15,12 +16,20 @@ export default (() => {
 		appContainer.appendChild(currentWeatherContainer);
 	}
 
+	function drawError(error) {
+		appContainer.innerHTML = '';
+		const errorContainer = createElement('div', 'error__container');
+		errorContainer.textContent = `Ooops, there was an error. ${error}`;
+		appContainer.appendChild(errorContainer);
+	}
+
 	function handleFormSubmit(e) {
 		e.preventDefault();
 		const inputValue = e.target.querySelector('.nav__search').value;
-		console.log(inputValue);
 		getWeatherData.getWeatherByCity(inputValue).then((weatherData) => {
-			drawWeather(weatherData);
+			weatherData instanceof Error
+				? drawError(weatherData)
+				: drawWeather(weatherData);
 		});
 	}
 
