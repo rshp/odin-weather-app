@@ -15,12 +15,23 @@ export default (() => {
 		appContainer.appendChild(currentWeatherContainer);
 	}
 
+	function handleFormSubmit(e) {
+		e.preventDefault();
+		const inputValue = e.target.querySelector('.nav__search').value;
+		console.log(inputValue);
+		getWeatherData.getWeatherByCity(inputValue).then((weatherData) => {
+			drawWeather(weatherData);
+		});
+	}
+
 	function init() {
 		const header = createHeader();
 		document.body.appendChild(header);
 
 		const nav = createNav();
 		document.body.appendChild(nav);
+		const form = nav.querySelector('.nav__form');
+		form.addEventListener('submit', handleFormSubmit);
 
 		document.body.appendChild(appContainer);
 		// draw loader

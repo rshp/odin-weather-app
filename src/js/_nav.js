@@ -1,16 +1,5 @@
 /* eslint-disable operator-linebreak */
 import { createElement } from './utils';
-import getWeatherData from './queryData';
-import render from './render';
-
-function handleFormSubmit(e) {
-	e.preventDefault();
-	const inputValue = e.target.querySelector('.nav__search').value;
-	console.log(inputValue);
-	getWeatherData.getWeatherByCity(inputValue).then((weatherData) => {
-		render.drawWeather(weatherData);
-	});
-}
 
 export default () => {
 	const nav = document.createElement('nav');
@@ -35,7 +24,6 @@ export default () => {
 	form.classList.add('nav__form');
 	form.appendChild(searchField);
 	form.appendChild(submitButton);
-	form.addEventListener('submit', handleFormSubmit);
 
 	searchContainer.appendChild(form);
 	nav.appendChild(searchContainer);
